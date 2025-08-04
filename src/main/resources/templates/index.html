@@ -31,11 +31,9 @@
                 <label for="themeToggleLight" class="btn btn-outline-secondary">Light</label>
             </div>
 
-            <select class="form-select" aria-label="Status" th:field="*{filterByStatus}">
-                <option th:value="''">All</option>
-                <option th:value="issued">Issued</option>
-                <option th:value="returned">Returned</option>
-            </select>
+
+            <div th:replace="~{fragments/general.html :: statuses (field='filterByStatus')}"></div>
+
 
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
@@ -49,7 +47,17 @@
 
                     <p class="card-text mb-1">
                         <strong>Status:</strong>
-                        <span th:text="${key.status == 'issued' ? 'Issued' : 'Returned'}">Example Status</span>
+                        <div th:switch="${key.status}">
+                            <div th:case="'issued'">
+                                <span>Issued</span>
+                            </div>
+                            <div th:case="'returned'">
+                                <span>Returned</span>
+                            </div>
+                            <div th:case="'lost'">
+                                <span>Lost</span>
+                            </div>
+                        </div>
                     </p>
 
                     <p class="card-text mb-2">

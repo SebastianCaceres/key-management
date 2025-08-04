@@ -55,6 +55,10 @@ public class KeyService {
         }
     }
 
+    public Key findBySerialNumber(String serialNumber){
+        return keyRepository.findBySerialNumber(serialNumber);
+    }
+
     public Key save(Key key){
         return keyRepository.save(key);
     }

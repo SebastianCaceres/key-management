@@ -13,4 +13,5 @@ import java.util.Optional;
 public interface KeyRepository extends JpaRepository<Key, Long> {
     List<Key> findBySerialNumberContaining(String serialNumber);
     Optional<Key> findById(Long id);
+    Key findBySerialNumber(String serialNumber);
 }

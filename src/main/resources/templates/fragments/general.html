@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<th:block th:fragment="statuses (field)">
+    <select class="form-select" aria-label="Status" th:field="*{__${field}__}">
+        <option th:value="''">All</option>
+        <option th:value="issued">Issued</option>
+        <option th:value="returned">Returned</option>
+        <option th:value="lost">Lost</option>
+    </select>
+</th:block>
+
+</body>
+</html>
