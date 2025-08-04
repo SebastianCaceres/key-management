@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -9,12 +9,11 @@
 </head>
 <body class="bg-light" th:classappend="${view.theme == 'dark'} ? 'dark-mode'">
 <div class="container py-4">
-    <form th:action="@{/update-view}" class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2" method="post"
-          th:object="${view}">
+
+    <form th:action="@{/update-view}" class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2" method="post" th:object="${view}">
         <h2 class="mb-0">Key Inventory</h2>
         <div class="d-flex flex-wrap align-items-center gap-2">
-            <input type="text" id="searchInput" class="form-control" placeholder="Search keys..."
-                   th:field="*{searchBySerialNumber}"/>
+            <input type="text" id="searchInput" class="form-control" placeholder="Search keys..." th:field="*{searchBySerialNumber}"/>
 
             <div class="btn-group" role="group">
                 <input type="radio" id="gridViewBtn" th:field="*{viewType}" th:value="grid" class="btn-check"/>
@@ -33,7 +32,7 @@
             </div>
 
             <select class="form-select" aria-label="Status" th:field="*{filterByStatus}">
-                <option th:value="''" selected>All</option>
+                <option th:value="''">All</option>
                 <option th:value="issued">Issued</option>
                 <option th:value="returned">Returned</option>
             </select>
@@ -42,25 +41,33 @@
         </div>
     </form>
 
-    <div id="keyContainer" th:classappend="${view.viewType == 'list'} ? 'list-view'" class="row row-cols-1 row-cols-md-3 g-3" >
-        <!-- Example key -->
+    <div id="keyContainer" th:classappend="${view.viewType == 'list'} ? 'list-view'" class="row row-cols-1 row-cols-md-3 g-3">
         <div class="col key-card" th:each="key : ${keys}">
             <div class="card h-100">
                 <div class="card-body">
-                    <h5 class="card-title" th:text="${key.serialNumber}">Serial: A123456</h5>
-                    <p class="card-text mb-1" th:utext="'<strong>Status:</strong> ' + (${key.status == 'issued' ? 'Issued' : 'Returned'})">><strong>Status:</strong> Issued</p>
-                    <p class="card-text mb-2" th:text="${key.updatedBy}"><strong>Last Actioned By:</strong> John Doe</p>
-                    <a th:src="@{/edit(serial='A123456')}" class="btn btn-sm btn-primary">Edit</a>
+                    <h5 class="card-title" th:text="${key.serialNumber}">Example Serial</h5>
+
+                    <p class="card-text mb-1">
+                        <strong>Status:</strong>
+                        <span th:text="${key.status == 'issued' ? 'Issued' : 'Returned'}">Example Status</span>
+                    </p>
+
+                    <p class="card-text mb-2">
+                        <strong>Last Actioned By:</strong>
+                        <span th:text="${key.updatedBy}">Example User</span>
+                    </p>
+
+                    <a th:href="@{/edit(keyId=${key.id})}" class="btn btn-sm btn-primary">Edit</a>
                 </div>
             </div>
         </div>
-        <!-- Add more key cards as needed -->
+
+        <div th:if="${#lists.isEmpty(keys)}" class="col-12">
+            <p class="text-center">No keys found matching the current filters.</p>
+        </div>
     </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<!--
-<script th:src="@{/js/scripts.js}"></script>
--->
 </body>
 </html>

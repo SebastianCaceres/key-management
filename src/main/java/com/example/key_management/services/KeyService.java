@@ -55,6 +55,14 @@ public class KeyService {
         }
     }
 
+    public Key save(Key key){
+        return keyRepository.save(key);
+    }
+
+    public Key findById(Long id){
+        return keyRepository.findById(id).orElse(null);
+    }
+
     public void updateView(View view) {
         viewRepository.save(view);
     }

@@ -28,7 +28,22 @@ public class KeyController {
 
         model.addAttribute("keys", keys);
         model.addAttribute("view", view);
-        return "index";
+        return "index.html";
+    }
+
+    @GetMapping("/edit")
+    public String editKey(Model model, @RequestParam(name = "keyId") Long id ){
+        Key key = keyService.findById(id);
+
+        model.addAttribute("key",key);
+
+        return "edit.html";
+    }
+
+    @PostMapping("/edit")
+    public String editKeyPost(@ModelAttribute(name = "key") Key key){
+        keyService.save(key);
+        return "redirect:/";
     }
 
     @PostMapping("/update-view")
