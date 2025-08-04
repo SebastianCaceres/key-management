@@ -46,12 +46,13 @@ public class KeyService {
         } else {
             keys = keyRepository.findAll();
         }
-
-        return keys.stream()
-/*
-                .filter(key -> key.getStatus().equals(view.getFilterByStatus()))
-*/
-                .collect(Collectors.toList());
+        if (!view.getFilterByStatus().isEmpty()) {
+            return keys.stream()
+                    .filter(key -> key.getStatus().equals(view.getFilterByStatus()))
+                    .collect(Collectors.toList());
+        }else {
+            return keys;
+        }
     }
 
     public void updateView(View view) {

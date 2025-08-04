@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 public class View {
     private String searchBySerialNumber;
-    private List<String> filterByStatus;
+    private String filterByStatus="";
     private String searchByUpdatedBy;
     private LocalDate searchByUpdated;
     private String theme = "light"; // Default theme is light

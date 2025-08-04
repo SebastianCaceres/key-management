@@ -32,6 +32,12 @@
                 <label for="themeToggleLight" class="btn btn-outline-secondary">Light</label>
             </div>
 
+            <select class="form-select" aria-label="Status" th:field="*{filterByStatus}">
+                <option th:value="''" selected>All</option>
+                <option th:value="issued">Issued</option>
+                <option th:value="returned">Returned</option>
+            </select>
+
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
     </form>
@@ -42,7 +48,7 @@
             <div class="card h-100">
                 <div class="card-body">
                     <h5 class="card-title" th:text="${key.serialNumber}">Serial: A123456</h5>
-                    <p class="card-text mb-1" th:text="${key.status}"><strong>Status:</strong> Issued</p>
+                    <p class="card-text mb-1" th:utext="'<strong>Status:</strong> ' + (${key.status == 'issued' ? 'Issued' : 'Returned'})">><strong>Status:</strong> Issued</p>
                     <p class="card-text mb-2" th:text="${key.updatedBy}"><strong>Last Actioned By:</strong> John Doe</p>
                     <a th:src="@{/edit(serial='A123456')}" class="btn btn-sm btn-primary">Edit</a>
                 </div>
